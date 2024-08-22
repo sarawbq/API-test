@@ -1,9 +1,10 @@
 import globals from "globals";
-// import pluginJs from "@eslint/js";
 import jest from 'eslint-plugin-jest';
+import eslintConfigPrettier from "eslint-config-prettier";
 
 
 export default [
+  eslintConfigPrettier,
   {
     files: ["tests/**/*.js"],
     plugins: {
@@ -29,9 +30,9 @@ export default [
       "no-shadow": "error",
       "indent": ["error", 4],
       "linebreak-style": [ "warn", "unix" ],
-      "max-len": [ "warn", 132 ],
+      "max-len": [ "error", 132 ],
       "semi": [ "error", "always" ],
     },
     languageOptions: {sourceType: "commonjs", globals: globals.jest},
-  },
+  }
 ];

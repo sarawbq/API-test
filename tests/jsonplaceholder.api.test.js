@@ -86,7 +86,3 @@ describe('delete /post/1',()=>{
         expect(response.status).toBe(200);
     });
 });
-
-
-
-
