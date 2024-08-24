@@ -1,46 +1,47 @@
 const axios= require('axios');
+const process= require('process');
+require('dotenv').config();
 
-const baseUrl = 'https://jsonplaceholder.typicode.com';
+
+// const baseUrl = 'https://jsonplaceholder.typicode.com';
+const baseUrl=process.env.JSON_PLACE_HOLDER_URL;
+
 describe ('Get /posts',()=>{
 
-    //TODO: globalize
-    // beforeAll(async ()=>{
-    //   const response= await axios.get(`${baseUrl}/posts`)
-    // })??????????????????????????????????????????
+    let responseOfGet;
 
-    test ('properties',async()=>{
-        const response = await axios.get (`${baseUrl}/posts`);
-        expect(response.status).toBe(200);
-  
+    beforeAll(async ()=>{
+        responseOfGet= await axios.get(`${baseUrl}/posts`);
+    });
 
-        //TODO: use for instead of forEach
-        response.data.forEach(item =>{
+    test ('properties',()=>{
+       
+        expect(responseOfGet.status).toBe(200);
+
+        for (let item of responseOfGet.data){
             expect(item).toHaveProperty('userId');
             expect(item).toHaveProperty('title');
             expect(item).toHaveProperty('id');
             expect(item).toHaveProperty('body');
-        });
+        }
     });
 
-    test('title check of number 5',async ()=>{
-        const response = await axios.get (`${baseUrl}/posts`);
-        const responseOf5= response.data.find(item=> item.id ===5);
+    test('title check of number 5', ()=>{
+        const responseOf5= responseOfGet.data.find(item=> item.id ===5);
         expect(responseOf5.title).toBe("nesciunt quas odio");
         expect(responseOf5.body).toContain('veniam');
   
     });
 
-    test('the response should contain 100 posts',async()=>{
-        const response= await axios.get(`${baseUrl}/posts`);
-        expect(response.data).toHaveLength(100);
+    test('the response should contain 100 posts',()=>{
+        expect(responseOfGet.data).toHaveLength(100);
 
     });
 
-    test('all userIds should be number',async()=>{
-        const response= await axios.get(`${baseUrl}/posts`);
-        response.data.forEach(item => {
-            expect(typeof item.userId).toBe('number');
-        });
+    test('all userIds should be number',()=>{
+        for (let item of responseOfGet.data){
+            expect(typeof item.userId).toBe('number');  
+        }
     });
 });
 
