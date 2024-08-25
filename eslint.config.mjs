@@ -34,5 +34,7 @@ export default [
       "semi": [ "error", "always" ],
     },
     languageOptions: {sourceType: "commonjs", globals: globals.jest},
-  }
+    
+  },
+  {languageOptions: {globals: globals.node}},
 ];

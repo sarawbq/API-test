@@ -20,6 +20,7 @@
   "homepage": "https://github.com/sarawbq/API-test#readme",
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@types/jest": "^29.5.12",
     "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jest": "^28.8.0",
