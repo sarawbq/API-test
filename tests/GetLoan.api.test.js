@@ -17,6 +17,16 @@ describe("GetLoan API tests", () => {
       );
       expect(responseOfPackages.status).toBe(200);
 
+      const validPackages = responseOfPackages.data.data.filter(
+        (item) => item.available === true && item.name !== "CnB",
+      );
+
+      if (validPackages.length == 0) {
+        throw new Error(
+          "No valid packages found to test. Ensure that at least one package is available and does not have the name CnB",
+        );
+      }
+
       for (let item of responseOfPackages.data.data) {
         if ((item.available == true) & (item.name != "CnB")) {
           const agreement = await axios.post(
@@ -60,7 +70,9 @@ describe("GetLoan API tests", () => {
           toFixedPackageAssetAmount = Number(packageAssetAmount).toFixed(
             packageCollateralPrecision,
           );
+          //toDo: removeTrailingZeros
           expect(collateralAmount).toBe(toFixedPackageAssetAmount);
+          //   expect(+collateralAmount).toBeCloseTo(+toFixedPackageAssetAmount);
 
           expect(loanAmount).toBe(item.amount);
           expect(collateralAmount).toBe(
@@ -69,12 +81,12 @@ describe("GetLoan API tests", () => {
             ),
           );
 
-          const loanAmountNum = Number(loanAmount);
-          const minAmountNum = Number(minAmount);
-          const maxAmountNum = Number(maxAmount);
+          //   const loanAmountNum = Number(loanAmount);
+          //   const minAmountNum = Number(minAmount);
+          //   const maxAmountNum = Number(maxAmount);
 
-          expect(loanAmountNum).toBeGreaterThanOrEqual(minAmountNum);
-          expect(loanAmountNum).toBeLessThanOrEqual(maxAmountNum);
+          expect(+loanAmountNum).toBeGreaterThanOrEqual(+minAmountNum);
+          expect(+loanAmountNum).toBeLessThanOrEqual(+maxAmountNum);
 
           let newLtv = karma * ltv;
           if (newLtv > ltvThreshold) {
