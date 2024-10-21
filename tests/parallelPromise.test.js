@@ -19,8 +19,8 @@ describe('parallel request for cnb Loans', () => {
         try {
             
             const [responseOfAgreement1, responseOfAgreement2] = await Promise.all([
-                axiosInstance.post(`/v1/loans/agreement`, { loanAmount: "32000000", loanConfigID: 5 }),
-                axiosInstance.post(`/v1/loans/agreement`, { loanAmount: "36000000", loanConfigID: 5 })
+                axiosInstance.post(`/v1/loans/agreement`, { loanAmount: "32400000", loanConfigID: 5 }),
+                axiosInstance.post(`/v1/loans/agreement`, { loanAmount: "36300000", loanConfigID: 5 })
             ]);
 
             expect(responseOfAgreement1.status).toBe(201);
