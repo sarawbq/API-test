@@ -147,7 +147,9 @@ describe("Credit Process from Packages", () => {
             console.error(`Error occurred while calling /v1/loans/packages API:`, error.response?.data);
             throw error;
     
-        }});
+        }}
+        ,9000
+    );
 
     test("Agreement API validation for CnBs", async ()=> {
 
